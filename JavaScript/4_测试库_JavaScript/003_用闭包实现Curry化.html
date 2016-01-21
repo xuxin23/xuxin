@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>用闭包实现curry化</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		//addFive现在包含一个接收单一参数的函数，这个函数能求得5加上该参数的和
+		var addFive = addGenerator(5);
+		//这里我们可以看到，在传入参数为4时，addFive函数的结果是9
+		alert(addFive(4) == 9);
+	}
+	
+	//数字求和函数的函数生成器
+	function addGenerator(num) {
+		//返回一个简单的函数，求两个数字的和，其中第一个数字来自生成器
+		return function(toAdd) {
+			return num + toAdd
+		};
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">用闭包实现curry化<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br />
+				//addFive现在包含一个接收单一参数的函数，这个函数能求得5加上该参数的和<br />
+				var addFive = addGenerator(5);<br />
+				//这里我们可以看到，在传入参数为4时，addFive函数的结果是9<br />
+				alert(addFive(4) == 9);<br />
+			}<br /><br />
+			
+			//数字求和函数的函数生成器<br />
+			function addGenerator(num) {<br />
+				//返回一个简单的函数，求两个数字的和，其中第一个数字来自生成器<br />
+				return function(toAdd) {<br />
+					return num + toAdd<br />
+				};<br />
+			}
+		</div>
+		<div id="bottom">
+			Curry化是一种通过把多个参数填充到函数体中，实现将函数转换为一个新的经过简化(使之接受的参数更少)函数的技术。
+		</div>
+	</div>
+</BODY>
+</HTML>

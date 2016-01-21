@@ -1,0 +1,13 @@
+* {
+
+}
+
+body {
+	text-align: center;
+}
+
+#container {
+	background-color: cyan;
+	padding: 5px 10px;
+	width: 600px;
+}

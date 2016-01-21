@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE>构造函数对象</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		//当作构造函数
+		var me = new User("xuxin");
+		alert(me.name == "xuxin");
+		alert(me.constructor == User);		//获取me的构造函数
+		var you = new me.constructor("kobe");		//通过me的构造函数(User)来新建对象
+		alert(you.name == "kobe");
+		alert(me.constructor == you.constructor);
+		
+		//当作普通函数
+		User("sb");
+		//因为它的'this'上下文对象未曾设定，所以默认为全局的'window'对象
+		//也就是说window.name等于提供的这个名字
+		alert(window.name == "sb");
+	}
+	
+	//一个简单的函数，接收名称并将其存入当前上下文中
+	//可以当作构造函数，亦可以当作普通函数
+	function User(name) {
+		this.name = name;
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">构造函数对象<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				//当作构造函数<br>
+				var me = new User("xuxin");<br>
+				alert(me.name == "xuxin");<br>
+				alert(me.constructor == User);		//获取me的构造函数<br>
+				var you = new me.constructor("kobe");		//通过me的构造函数(User)来新建对象<br>
+				alert(you.name == "kobe");<br>
+				alert(me.constructor == you.constructor);<br><br>
+				
+				//当作普通函数<br>
+				User("sb");<br>
+				//因为它的'this'上下文对象未曾设定，所以默认为全局的'window'对象<br>
+				//也就是说window.name等于提供的这个名字<br>
+				alert(window.name == "sb");<br>
+			}<br><br>
+			
+			//一个简单的函数，接收名称并将其存入当前上下文中<br>
+			//可以当作构造函数，亦可以当作普通函数<br>
+			function User(name) {<br>
+				this.name = name;<br>
+			}<br>
+		</div>
+		<div id="bottom">
+			看代码，理解构造函数可以当作构造函数也可以当作普通函数。<br>
+			构造函数生成的对象，其constructor执行原构造函数，可以new me.constructor("kobe")来新建对象，因为
+			me.constructor等于User
+		</div>
+	</div>
+</BODY>
+</HTML>

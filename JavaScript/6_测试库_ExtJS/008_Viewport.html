@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+	<title>
+		Viewport
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			new Ext.Viewport({
+				enableTabScroll:true,
+				layout:"border",
+				items:[{title:"面板",
+						region:"north",		//北
+						height:100,
+						html:"后台管理系统"
+						},
+				       {title:"菜单",
+						region:"west",		//西
+						width:200,
+						html:"菜单栏",
+						collapsible:true	// 可收缩
+				       },
+				       {
+				    	 xtype:"tabpanel",
+				    	 region:"center",
+				    	 items:[{title:"面板1",
+				    		 	 html:"面板1的内容"
+				    	 		},
+				    	 		{
+				    	 		 title:"面板2",
+				    	 		 html:"面板2的内容"
+				    	 		}]
+				       }]
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<div id="hello">
+	</div>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>arguments测试</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	//发送一条消息的简单函数
+	var test = function() {
+		sendMessage("Hello,World!");
+		sendMessage("haha",new Object());
+	}
+	
+	function sendMessage(msg,obj) {
+		if (arguments.length == 2) {
+			alert("测试2个参数的结果..");
+		} else {
+			alert("测试1个参数的结果..");
+		}
+	}
+	
+	//一个接收任意数量参数并将其转换为数组的函数
+	function makeArray() {
+		var arr = [];
+		for (var i=0; i<arguments.length; i++) {
+			arr.push(arguments[i]);
+		}
+		return arr;
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">arguments测试<button onclick="test();" style="height:30px">测试</button></div>
+		JavaScript的每个函数都带有一个仅在这个函数范围内作用的变量称为参数(argument),它是一个包含所有传给函数的参数的伪数组，所以
+				它并非真正意义上的数组(也就是说你不能修改它，也不能push()来添加新元素)，但可以访问其中的元素，它也具有.length属性。
+	</div>
+</BODY>
+</HTML>

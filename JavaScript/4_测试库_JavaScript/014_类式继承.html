@@ -1,0 +1,131 @@
+<HTML>
+<HEAD>
+<TITLE>类式继承</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	<!-- 测试继承类库 -->
+	var test = function() {
+		//TODO
+	}
+	
+	//创建一个新的Person对象构造函数
+	function Person(name) {
+		this.name = name;
+	}
+	
+	//给Person对象添加一个新方法
+	Person.method('getName',function() {
+		return name;
+	});
+	
+	//创建了一个新的User对象构造函数
+	function User(name,password) {
+		this.name = name;
+		this.password = password;
+	}
+	
+	//从Person对象继承所有方法
+	User.inherits(Person);
+	
+	//给User对象添加一个新的方法
+	User.method('getPassword',function() {
+		return this.password;
+	});
+	
+	//覆盖Person对象创建的getName方法，通过uber函数来调用原有方法
+	User.method('getName',function() {
+		return "My name is: " + this.uber('getName');
+	});
+	
+	
+	<!-- 简单继承体系类库 -->
+	
+	//简单的辅助函数，让你可以将新函数绑定到对象的prototype上
+	Funciton.prototype.method = function(name,func) {
+		this.prototype[name] = func;
+		return this;
+	}
+	
+	//一个(相当复杂的)函数，允许你方便地从其他对象继承函数，同时仍然可以调用属于父对象的那些函数
+	//这一函数可以用于提供简单的单对象继承，它的代码主要围绕在任意对象方法中调用this.uber('methodName')为中心，并再让这个uber
+	//方法去执行它要覆盖的父对象的方法。这是JavaScript继承模型中并未内建的部分。
+	Funtcion.method('inherits',function(parent) {
+		//记录我们当前所在父层次的级数
+		var depth = 0;
+		
+		//继承父对象的方法
+		var proto = this.prototype = new parent();
+		
+		//创建一个新的名为‘uber’的"特权"函数
+		this.method('uber',function uber(name) {
+			
+			var func;						//要执行的函数
+			var ret;						//函数返回值
+			var v = parent.prototype;		//父对象的prototype
+			
+			//如果我们已经在某个'uber'函数之内
+			if (depth) {
+				//上溯必要的depth，以找到原始的prototype
+				for (var i=depth; i>0; i--) {
+					v = v.constructor.prototype;
+				}
+				
+				//从该prototype中获得函数
+				func = v[name];
+				
+			//否则这就是'uber'函数的第一次调用
+			} else {
+				//从prototype获得要执行的函数
+				func = proto[name];
+				
+				//如果此函数属于当前prototype
+				if (func == this[name]) {
+					//则改为调用父对象的prototype
+					func = v[name];
+				}
+			}
+			
+			//记录我们在继承堆栈中所在位置的级数
+			depth += 1;
+			
+			//使用除第一个以外所有的arguments调用此函数
+			//(因为第一个参数是执行的函数名)
+			ret = func.apply(this,Array.prototype.slice.apply[arguments,[1]]);
+			
+			//恢复继承堆栈
+			depth -= 1;
+			
+			//返回执行过的函数的返回值
+			return ret;
+		});
+		
+		return this;
+	});
+		
+	//只继承父对象特定函数的函数。而非使用new parent()继承所有的函数
+	//它提供了一个简单的方法，把函数与构造函数的原型关联起来。之所以有效，是因为所有的构造函数本身都是函数，所有能获得"method"这个新方法。
+	Function.method('swiss',function(parent) {
+		//遍历所有要继承的方法
+		for (var i=1; i<arguments.length;i++) {
+			//需要导入的方法名
+			var name = arguments[i];
+			
+			//将此方法导入this对象的prototype中
+			this.prototype[name] = parent.prototype[name];
+		}
+		
+		return this;
+	});
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">对象静态方法<button onclick="test();" style="height:30px">测试</button></div>
+			
+	</div>
+</BODY>
+</HTML>

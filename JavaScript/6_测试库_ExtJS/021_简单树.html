@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+	<title>
+		简单树
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var root = new Ext.tree.TreeNode({			//生成根节点
+				id:"root",
+				text:"树的根"
+			});
+			root.appendChild(new Ext.tree.TreeNode({	//添加子节点
+				id:"c1",
+				text:"子节点"
+			}));
+			var tree = new Ext.tree.TreePanel({			//生成树
+				renderTo:"test",
+				root:root,
+				width:100
+			});
+			tree.on("click",function(node,event) {		//为树注册事件
+				Ext.Msg.alert("提示","您点击了" + node.text);
+			});
+		});
+		
+	</script>
+</HEAD>
+<BODY>
+	<div id="test"></div>
+</BODY>
+</HTML>

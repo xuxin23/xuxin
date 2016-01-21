@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+	<title>
+		confirm
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			Ext.get("btn").on("click",function() {
+				Ext.Msg.confirm("请确认","是否删除指定的内容?",function(button,text) {
+					if (button == "yes") {				//button的值为点击的按钮
+						Ext.Msg.alert("结果","内容成功删除!");
+					}
+				});
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<input id="btn" type="button" value="对话框"/>
+</BODY>
+</HTML>

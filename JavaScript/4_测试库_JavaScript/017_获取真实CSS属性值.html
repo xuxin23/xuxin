@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<TITLE>获取真实CSS属性值</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src="../JavaScriptTool/tool.js"></script>
+<style type="text/css">
+	p {height:100px;background-color:green;}
+</style>
+<script type="text/javascript">
+	window.onload = function() {
+		//定位到段落并检查它的高度
+		var p = document.getElementsByTagName("p")[0];
+		
+		//使用传统的方式来检查
+		//这种方法只能获取标签上写死的属性值，不能获取样式修饰的实际值
+		alert(p.style.height + " should be null");
+		
+		//检查最终高度的值，调用了tool.js的getStyle()方法
+		alert(getStyle(p,"height") + " should be 100px");
+	};
+	
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">获取真实CSS属性值</div>
+			<p>
+				这是一个片段...高度是100px...
+			</p>
+	</div>
+</BODY>
+</HTML>

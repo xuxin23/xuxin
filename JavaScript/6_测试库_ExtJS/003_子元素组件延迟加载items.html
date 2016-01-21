@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+	<title>
+		子元素组件延迟加载
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			//在父组件的构造函数中，通过给属性items传递数组方式实现构造。---延迟加载。
+			var panel = new Ext.TabPanel({width:300,height:200,items:[
+			    {title:"面板1",height:30},{title:"面板2",height:30},
+			    {title:"面板3",height:30}]});
+			panel.render("hello");			//表示页面上的id为hello的div
+		});
+	</script>
+</HEAD>
+<BODY>
+	<div id="hello">
+	</div>
+</BODY>
+</HTML>

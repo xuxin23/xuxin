@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+	<title>
+		Record
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var MyRecord = Ext.data.Record.create([
+			    {name:'title'},
+			    {name:'username',mapping:'author'},
+			    {name:'loginTimes',type:'init'},
+			    {name:'lastLoginTime',mapping:'loginTime',type:'date'}
+			]);
+			
+			var record = new MyRecord({
+				title:"日志标题",
+				username:"easyif",
+				loginTimes:100,
+				loginTime:new Date()
+			});
+			
+			alert(MyRecord.getField("username").mapping);
+			alert(MyRecord.getField("lastLoginTime").type);
+			alert(record.data.username);
+			alert(record.get("loginTimes"));
+		});
+	</script>
+</HEAD>
+<BODY>
+</BODY>
+</HTML>

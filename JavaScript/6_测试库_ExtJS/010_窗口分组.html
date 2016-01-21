@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+	<title>
+		窗口分组
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		var i = 0;
+		var mygroup;
+		var add = function() {
+			var win = new Ext.Window({
+				title:"窗口" + i++,
+				width:300,
+				height:200,
+				maximizable:true,		//可变最大
+				manager:mygroup			//窗口所在的分组
+			});
+			win.show();
+		}
+		
+		var sendToBack = function() {
+			mygroup.sendToBack(mygroup.getActive());
+		}
+		
+		var hideAll = function() {
+			mygroup.hideAll();
+		}
+		
+		Ext.onReady(function() {
+			mygroup = new Ext.WindowGroup();		//创建窗口分组
+			Ext.get("add").on("click",add);
+			Ext.get("sendToBack").on("click",sendToBack);
+			Ext.get("hideAll").on("click",hideAll);
+		});
+	</script>
+</HEAD>
+<BODY>
+	<input type="button" id="add" value="弹出窗口"/>
+	<input type="button" id="sendToBack" value="放到后台"/>
+	<input type="button" id="hideAll" value="隐藏所有"/>
+</BODY>
+</HTML>

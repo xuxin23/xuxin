@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>treeview</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link href="../jquery.treeview.css" rel="stylesheet" type="text/css"/>
+	<script src="../jquery.min.js" type="text/javascript"></script>
+	<script src="../jquery.treeview.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#tree').treeview({
+				collapsed: true,
+				animated: "fast"
+			});
+		});
+	</script>
+</head>
+<body>
+	<ul id="tree" class=".treeview-gray">
+		<li>
+			01
+			<ul>
+				<li>0101</li>
+				<li>0102</li>
+			</ul>
+		</li>
+		<li>
+			02
+			<ul>
+				<li>0201</li>
+				<li>0202</li>
+			</ul>
+		</li>
+		<li>
+			03
+			<ul>
+				<li>0301</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

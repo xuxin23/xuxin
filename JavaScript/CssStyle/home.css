@@ -1,0 +1,45 @@
+* {
+
+}
+
+body {
+	text-align:center;
+}
+
+<!-- 模板容器DIV -->
+#container {
+	position:relative;		/* 子DIV如果要相对当前DIV绝对定位的话，当前DIV的position必须为relative或absolute*/
+	width:700px;
+	height:400px;
+	padding:40px 20px 90px 20px;
+	background-color:#33FFFF;
+	text-align:left;
+}
+
+<!-- 模板标题DIV -->
+#title {
+	position:absolute;		/*绝对定位*/
+	width:700px;
+	height:30px;
+	top:0px;				/*绝对定位必须要设置的*/
+	left:0px;
+	line-height:30px;		/*行高，即设置文字的行高*/
+	font-weight:bold;		/*字体粗细*/
+	padding-left:20px;
+	color:#006666;
+	background-color:#00FFCC;
+}
+
+<!-- 模板底部说明DIV -->
+#bottom {
+	position:absolute;		/*绝对定位*/
+	width:700px;
+	height:90px;
+	bottom:0px;				/*绝对定位必须要设置的*/
+	left:0px;
+	line-height:30px;		/*行高，即设置文字的行高*/
+	font-weight:bold;		/*字体粗细*/
+	padding-left:20px;
+	color:#006666;
+	background-color:#00FFCC;
+}

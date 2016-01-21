@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+	<title>
+		动态树
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var root = new Ext.tree.AsyncTreeNode({
+				id:"root",
+				text:"树的根"
+			});
+			var tree = new Ext.tree.TreePanel({
+				renderTo:"test",
+				root:root,
+				loader:new Ext.tree.TreeLoader({url:"./022_01_treedata.js"}),
+				width:100
+			});
+		});
+		
+	</script>
+</HEAD>
+<BODY>
+	<div id="test"></div>
+</BODY>
+</HTML>

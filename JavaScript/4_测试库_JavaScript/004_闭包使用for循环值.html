@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE>闭包使用for循环值</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		var obj = document.getElementById("container");
+		var items = ["click","keypress"];
+		//遍历数组的每个成员
+		for (var i=0; i<items.length; i++) {
+			(function() {
+				//记住在这个作用域内的值
+				var item = items[i];
+				//将一个函数绑定到该元素
+				obj["on" + item] = function() {
+					//item引用本for循环上下文所属作用域中的一个父变量
+					alert("Thanks for your " + item);
+				}
+			})();
+		}
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">闭包使用for循环值<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				var obj = document.getElementById("container");<br>
+				var items = ["click","keypress"];<br>
+				<br>
+				for (var i=0; i&lt;items.length; i++) {			//遍历数组的每个成员<br>
+					(function() {<br>
+						var item = items[i];					//记住在这个作用域内的值<br>	
+						obj["on" + item] = function() {			//将一个函数绑定到该元素<br>
+							alert("Thanks for your " + item);	//item引用本for循环上下文所属作用域中的一个父变量<br>
+						}<br>
+					})();<br>
+				}<br>
+			}
+		</div>
+		<div id="bottom">
+			闭包允许你引用父函数中的变量，但提供的值并非该变量创建时的值，而是在父函数范围内的最终值。<br>
+			所以，在每次循环的时候，用一个局部变量来指向循环的值。
+		</div>
+	</div>
+</BODY>
+</HTML>

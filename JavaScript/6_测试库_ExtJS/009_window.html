@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+	<title>
+		window
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		var i = 0;
+		var newWin = function() {
+			var win = new Ext.Window({
+				title:"窗口" + i++,
+				width:300,
+				height:200,
+				maximizable:true		//可变最大
+			});
+			win.show();
+		}
+		Ext.onReady(function() {
+			Ext.get("test").on("click",newWin);
+		});
+	</script>
+</HEAD>
+<BODY>
+	<input type="button" id="test" value="弹出窗口"/>
+</BODY>
+</HTML>

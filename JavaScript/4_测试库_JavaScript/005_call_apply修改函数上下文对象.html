@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>call/apply修改函数上下文对象</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		//在window对象中调用此函数会失败，因为window对象没有style属性
+		// changeColor("white");
+		
+		var title = document.getElementById("title");
+		//使用call方法
+		changeColor.call(title,"white");
+		setBodyColor("green");
+		
+	}
+	
+	//一个设置上下文对象颜色样式的简单函数
+	function changeColor(color) {
+		this.style.color = color;
+	}
+	
+	//设置body元素颜色的函数
+	function setBodyColor() {
+		//apply方法
+		changeColor.apply(document.body,arguments);
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">call/apply修改函数上下文对象<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				// changeColor("white");//在window对象中调用此函数会失败，因为window对象没有style属性<br>
+				var title = document.getElementById("title");<br>
+				changeColor.call(title,"white");//使用call方法<br>
+				setBodyColor("green");<br>
+			}<br><br>
+			
+			function changeColor(color) {//一个设置上下文对象颜色样式的简单函数<br>
+				this.style.color = color;<br>
+			}<br><br>
+			
+			function setBodyColor() {//设置body元素颜色的函数<br>
+				changeColor.apply(document.body,arguments);//apply方法<br>
+			}<br>
+		</div>
+		<div id="bottom">
+			call的第一个参数是上下文对象，其他参数作为原函数的参数<br>
+			apply的第一个参数是上下文对象，第二个参数为传递给函数的所有参数的数组
+		</div>
+	</div>
+</BODY>
+</HTML>

@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>动态生成对象方法</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		var user = new User({name:"xuxin",age:23});
+		//注意name属性并不存在；因为它是属性对象(properties object)的私有变量
+		alert(user.name == null);
+		//使用动态生成的getname()方法获取这个值
+		alert(user.getname());
+		//设置年龄18
+		user.setage(18);
+		alert(user.getage());
+	}
+	
+	//创建一个新的用户对象，接受一个有很多属性的对象作为参数
+	function User(properties) {
+		//遍历该对象的所有属性，并保证其作用域正确
+		for (var i in properties) {
+			(function(which) {
+				var p = i;
+				//创建此属性的一个新的读取器
+				which["get"+p] = function() {
+					return properties[p];
+				};
+				//创建此属性的一个新的设置器
+				which["set"+p] = function(val) {
+					properties[p] = val;
+				};
+			})(this);
+		}
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">动态生成对象方法<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				var user = new User({name:"xuxin",age:23});<br>
+				//注意name属性并不存在；因为它是属性对象(properties object)的私有变量<br>
+				alert(user.name == null);<br>
+				//使用动态生成的getname()方法获取这个值<br>
+				alert(user.getname());<br>
+				//设置年龄18<br>
+				user.setage(18);<br>
+				alert(user.getage());<br>
+			}<br>
+			<br>
+			//创建一个新的用户对象，接受一个有很多属性的对象作为参数<br>
+			function User(properties) {<br>
+				//遍历该对象的所有属性，并保证其作用域正确<br>
+				for (var i in properties) {<br>
+					(function(which) {<br>
+						var p = i;<br>
+						//创建此属性的一个新的读取器<br>
+						which["get"+p] = function() {<br>
+							return properties[p];<br>
+						};<br>
+						//创建此属性的一个新的设置器<br>
+						which["set"+p] = function(val) {<br>
+							properties[p] = val;<br>
+						};<br>
+					})(this);<br>
+				}<br>
+			}<br>
+		</div>
+		<div id="bottom">
+			方法是动态生成的，根据传入对象的属性，新建获取/设置这些属性的方法。<br>
+			对象 + "."会提示该对象有哪些方法，发现不会提示这些动态生成的方法，而只会提示那些第一次编译就
+			有的方法。
+		</div>
+	</div>
+</BODY>
+</HTML>

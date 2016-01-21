@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+	<title>
+		表格控件
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			//定义数据
+			var data = [[1,'EasyJWeb','EasyJF','www.easyif.com'],
+			            [2,'jfox','huihoo','www.huihoo.org'],
+			            [3,'jdon','jdon','www.jdon.com'],
+			            [4,'springside','springside','www.springside,org.cn']];
+			//定义解析器(参数data表示源数据，参数fields表示解析成的字段)
+			var store = new Ext.data.SimpleStore({
+				data:data,fields:["id","name","organization","homepage"]});
+			//定义列模型,也可以直接将列信息写在new Ext.grid.GridPanel的属性columns
+			var colM = new Ext.grid.ColumnModel([{
+				header:"项目名称",dataIndex:"name",sortable:true
+			},{
+				header:"开发团队",dataIndex:"organization",sortable:true
+			},{
+				header:"网址",dataIndex:"homepage"
+			}]);
+			//生成表格
+			var grid = new Ext.grid.GridPanel({
+				renderTo:"test",
+				title:"中国Java开源产品及团队",
+				height:200,
+				width:600,
+				cm:colM,
+				store:store,
+				autoExpandColumn:2
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<div id="test">
+	</div>
+</BODY>
+</HTML>

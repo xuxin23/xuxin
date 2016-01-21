@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE>对象特权方法</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		var user = new User("xuxin",23);
+		//特权方法，可在外部被调用
+		alert(user.getYearBorn());
+	}
+	
+	function User(name,age) {
+		var year = (new Date()).getFullYear() - age;
+		//特权方法，访问私有变量year
+		this.getYearBorn = function() {
+			return year;
+		};
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">对象特权方法<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				var user = new User("xuxin",23);<br>
+				//特权方法，可在外部被调用<br>
+				alert(user.getYearBorn());<br>
+			}<br><br>
+			
+			function User(name,age) {<br>
+				var year = (new Date()).getFullYear() - age;<br>
+				//特权方法，访问私有变量year<br>
+				this.getYearBorn = function() {<br>
+					return year;<br>
+				};<br>
+			}
+		</div>
+		<div id="bottom">
+			特权方法可以访问私有变量或方法，同时也可以被外部访问。<br>
+			是获取私有变量、使用私有方法的桥梁。
+		</div>
+	</div>
+</BODY>
+</HTML>

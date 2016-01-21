@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+	<title>
+		Panel基本布局
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var panel = new Ext.Panel({
+				renderTo:"hello",
+				title:"面板头部",
+				html:"面板主内容",
+				width:300,
+				height:200,
+				//显示在面板头部内置的工具，注意lieteners与handler的使用
+				tools:[{id:"save"},{id:"help",handler:function() {	//事件
+					Ext.MessageBox.alert("help","please help me..");
+				}},{id:"close"}],
+				tbar:[{pressed:true,text:"顶部工具栏1"},
+				      {xtype:"tbseparator"},						//分隔符
+				      {pressed:true,text:"顶部工具栏2"}],
+				bbar:[{pressed:true,text:"底部工具栏"}],
+				buttons:[{text:"footer"}]
+			});
+			panel.show();
+		});
+	</script>
+</HEAD>
+<BODY>
+	<div id="hello">
+	</div>
+</BODY>
+</HTML>

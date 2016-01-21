@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>原型式继承</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	<!-- 这个例子中，最重要的一行是User.prototype=new Person(); -->
+	<!-- User是对User对象构造函数的引用。new Person()使用Person构造函数创建了一个新的Person对象， -->
+	<!-- 然后把User构造函数的原型置为这个操作的结果 -->
+	var test = function() {
+		var user = new User("xuxin","123456");
+		//getName方法是从Person继承过来的
+		alert(user.getName() + "-" + user.getPassword());
+	}
+	
+	//为Person对象创建一个构造函数
+	function Person(name) {
+		this.name = name;
+	}
+	//给Person对象添加一个新方法
+	Person.prototype.getName = function() {
+		return this.name;
+	}
+	
+	//创建一个新的User对象构造函数
+	function User(name,password) {
+		//注意，这里并没有支持方便的重载/继承，也就是说，不能调用父类的构造函数
+		this.name = name;
+		this.password = password;
+	}
+	//User对象继承所有Person对象的方法
+	User.prototype = new Person();
+	//我们添加一个新方法到User对象中
+	User.prototype.getPassword = function() {
+		return this.password;
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">对象静态方法<button onclick="test();" style="height:30px">测试</button></div>
+			
+	</div>
+</BODY>
+</HTML>

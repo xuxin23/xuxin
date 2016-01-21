@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE>对象私有方法</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		alert(1);
+		var clas = new Classroom(["kobe","wade"],"jackson");
+		alert(2);
+		/*不能调用对象的私有方法*/
+		// clas.disp();
+	}
+	
+	//表示教室的一个对象构造函数
+	function Classroom(students,teacher) {
+		function disp() {		//显示所有学生
+			alert(this.students.join(","));
+		}
+		this.students = students;
+		this.teacher = teacher;
+		/*注意：Classroom当作普通方法时，disp()可执行;但是作为构造函数，在
+		 *new 对象时，disp()是错误的。
+		 */
+		// disp();
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">对象私有方法<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				alert(1);<br>
+				var clas = new Classroom(["kobe","wade"],"jackson");<br>
+				alert(2);<br>
+				/*不能调用对象的私有方法*/<br>
+				// clas.disp();<br>
+			}<br><br>
+			
+			//表示教室的一个对象构造函数<br>
+			function Classroom(students,teacher) {<br>
+				function disp() {		//显示所有学生<br>
+					alert(this.students.join(","));<br>
+				}<br>
+				this.students = students;<br>
+				this.teacher = teacher;<br>
+				/*注意：Classroom当作普通方法时，disp()可执行;但是作为构造函数，在<br>
+				 *new 对象时，disp()是错误的。<br>
+				 */<br>
+				// disp();<br>
+			}
+		</div>
+		<div id="bottom">
+			生成的对象是不能访问构造函数中的私有方法的；<br>
+			甚至在构造函数中都不能直接调用私有方法，必须通过私有变量或私有方法来调用；<br>
+			作为普通方法，函数中的私有方法可以直接调用执行，但是如果new就会出错。
+		</div>
+	</div>
+</BODY>
+</HTML>

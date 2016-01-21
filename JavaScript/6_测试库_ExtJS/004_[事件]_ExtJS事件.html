@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+	<title>
+		事件
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			/* Ext.get("btnAlert").addListener("click",function() {
+				Ext.MessageBox.alert("事件","事件测试...");
+			}); */
+			Ext.get("btnAlert").on("click",function() {
+				Ext.MessageBox.alert("事件","事件队列测试...");
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<input type="button" id="btnAlert" value="alert框"/>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+	<title>
+		可编辑的表格控件
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		<!-- 保存编辑的表格用afteredit事件，具体参考[ExtJS实用开发指南.pdf_p50] -->
+		Ext.onReady(function() {
+			//定义数据
+			var data = [[1,'EasyJWeb','EasyJF','www.easyif.com','男','1989-11-13'],
+			            [2,'jfox','huihoo','www.huihoo.org','女','1989-11-13'],
+			            [3,'jdon','jdon','www.jdon.com','男','1989-11-13'],
+			            [4,'springside','springside','www.springside,org.cn','女','1989-11-13']];
+			//定义解析器(参数data表示源数据，参数fields表示解析成的字段)
+			var store = new Ext.data.SimpleStore({
+				data:data,fields:["id",
+				                  "name",
+				                  "organization",
+				                  "homepage",
+				                  "sex",
+				                  {name:"bornDate",
+								   type:"date",					//日期类型
+								   dateFormat:"Y-m-d"}			//解析后的格式
+				]});
+			//定义列模型,也可以直接将列信息写在new Ext.grid.GridPanel的属性columns
+			var colM = new Ext.grid.ColumnModel([{
+				header:"项目名称",dataIndex:"name",sortable:true
+			},{
+				header:"开发团队",
+				dataIndex:"organization",
+				sortable:true,
+				editor:new Ext.form.TextField()					//定义该列使用文本编辑器
+			},{
+				header:"网址",
+				dataIndex:"homepage",
+				renderer:showUrl
+			},{
+				header:"性别",
+				dataIndex:"sex",
+				editor:new Ext.form.ComboBox({					//定义该列使用下拉框编辑器		
+					transform:"sexList",						//内容从id为sexList的<select>取
+					triggerAction:'all',
+					lazyRender:true
+				})
+			},{
+				header:"出生日期",
+				dataIndex:"bornDate",
+				renderer:Ext.util.Format.dateRenderer('Y-m-d'),
+				editor:new Ext.form.DateField({					//定义该列使用日期编辑器
+					format:'Y-m-d'
+				})
+			}]);
+			//生成表格
+			var grid = new Ext.grid.EditorGridPanel({			//EditorGridPanel
+				renderTo:"test",
+				title:"中国Java开源产品及团队",
+				height:200,
+				width:600,
+				cm:colM,
+				store:store,
+				clicksToEdit:1									//触发编辑的鼠标点击次数
+			});
+		});
+		
+		function showUrl(value) {
+			return "<a href='http://" + value + "' target='_blank'>" + value + "</a>";
+		}
+	</script>
+</HEAD>
+<BODY>
+	<div id="test">
+		<select id="sexList">									<!-- 下拉框编辑器获取的数据 -->
+			<option value="男">男</option>
+			<option value="女">女</option>
+		</select>
+	</div>
+</BODY>
+</HTML>

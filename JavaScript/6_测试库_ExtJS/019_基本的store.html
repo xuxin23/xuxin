@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+	<title>
+		基本的store
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		<!-- 该代码不能执行，仅作参考 -->
+		Ext.onReady(function() {
+			Ext.Msg.alert("提示","该代码不能执行，仅作参考..");
+			
+			var MyRecord = Ext.data.Record.create([
+			     {name:'title'},
+			     {name:'username',mapping:'author'},
+			     {name:'loginTimes',type:'int'},
+			     {name:'lastLoginTime',mapping:'loginTime',type:'date'}
+			]);
+			
+			//数据源
+			var dataProxy = new Ext.data.HttpProxy({url:"link.ejf"});
+			//解析方式
+			var theReader = new Ext.data.JsonReader({
+				totalProperty:"results",
+				root:"rows",
+				id:"id"
+			},MyRecord);
+			//一个完整的数据存储器要知道数据源(DataProxy)及数据解析方式(DataReader)才能工作
+			var store = new Ext.data.Store({
+				proxy:dataProxy,
+				reader:theReader
+			});
+			
+			store.load();
+		});
+	</script>
+</HEAD>
+<BODY>
+</BODY>
+</HTML>

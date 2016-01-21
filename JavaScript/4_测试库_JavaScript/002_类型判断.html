@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE>类型判断</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		/*使用typeof来判断类型*/
+		var num = "098";
+		alert("typeof判断类型：" + num + "的类型是" + typeof num + "-" + (typeof num == "string"));
+		
+		/*使用构造函数constructor*/
+		//检查我们的数字实际上是否为字符串
+		if (num.constructor == String) {
+			num = parseInt(num);	//如果是，则根据这个字符解析出整数来
+			alert("constructor判断类型..");
+		}
+		var str = ['hello','javascript'];
+		//检查我们的字符串实际上是否为数组
+		if (str.constructor == Array) {
+			str = str.join(',');	//如果是，则根据数组用逗号归并出字符串来
+			alert("constructor判断类型：" + str);
+		}
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">类型判断<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+	       var test = function() {<br/>
+			/*使用typeof来判断类型*/<br/>
+			var num = "098";<br/>
+			alert("typeof判断类型：" + num + "的类型是" + typeof num + "-" + (typeof num == "string"));
+			<br/>
+			/*使用构造函数constructor*/<br/>
+			//检查我们的数字实际上是否为字符串<br/>
+			if (num.constructor == String) {<br/>
+				num = parseInt(num);	//如果是，则根据这个字符解析出整数来<br/>
+				alert("constructor判断类型..");<br/>
+			}<br/>
+			var str = ['hello','javascript'];<br/>
+			//检查我们的字符串实际上是否为数组<br/>
+			if (str.constructor == Array) {<br/>
+				str = str.join(',');	//如果是，则根据数组用逗号归并出字符串来<br/>
+				alert("constructor判断类型：" + str);<br/>
+			}<br/>
+			}
+		</div>
+	</div>
+</BODY>
+</HTML>

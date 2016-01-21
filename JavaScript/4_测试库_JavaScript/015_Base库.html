@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE>Base库</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	<!-- 测试Base库,未引用Base库，无法测试 -->
+	var test = function() {
+		alert(1);
+		var user = new User("xuxin","123456");
+		alert(user.getName() + "-" + user.getPassword());
+	}
+	
+	//创建一个新的Person类
+	var Person = Base.extend({
+		//Person类的构造函数
+		constructor: function(name) {
+			this.name = name;
+		},
+		
+		//Person类的一个简单方法
+		getName: function() {
+			return this.name;
+		}
+	});
+	
+	//创建一个新的继承自Person类的User类
+	var User = Person.extend({
+		//创建User类的构造函数
+		constructor: function(name,password) {
+			//这个函数实际上调用了父类的构造函数
+			this.base(name);
+			this.password = password;
+		},
+		
+		//给User类提供了另一个简单的方法
+		getPassword: function() {
+			return this.passowrd;
+		}
+	});
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">Base库<button onclick="test();" style="height:30px">测试</button></div>
+			
+	</div>
+</BODY>
+</HTML>

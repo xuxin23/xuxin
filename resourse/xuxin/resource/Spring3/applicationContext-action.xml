@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-2.5.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<!-- Action配置 -->
+	
+	<!-- 【注意】这里的scope一定要设置为prototype&request,Struts的Action应该每次请求都是交给 -->
+	<!-- 一个新的Action对象，(不然...) ;	Spring的<bean>默认为singleton-->
+	<bean id="test" class="pro.bbs.action.Test" scope="prototype">
+		<property name="userInfoService" ref="userInfoService"/>
+	</bean>
+	
+	<bean id="userAction" class="pro.bbs.action.UserAction" scope="prototype">
+		<property name="userInfoService" ref="userInfoService"/>
+	</bean>
+	
+	<bean id="postAction" class="pro.bbs.action.PostAction" scope="prototype">
+		<property name="postService" ref="postService"/>
+	</bean>
+	
+	<bean id="themeAction" class="pro.bbs.action.ThemeAction" scope="prototype">
+		<property name="themeService" ref="themeService"></property>
+	</bean>
+</beans>

@@ -1,0 +1,26 @@
+
+<HTML>
+<HEAD>
+	<title>
+		beforedestroy
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var win = new Ext.Window({title:"不可能关闭的窗口",width:300,height:300});
+			//beforedestroy该事件会在Ext销毁这一个组件时触发
+			win.on("beforedestroy",function(obj) {
+				Ext.MessageBox.alert("提示","关不掉哦");
+				obj.show();
+				return false;
+			});
+			win.show();
+		});
+	</script>
+</HEAD>
+<BODY>
+</BODY>
+</HTML>

@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE>公共方法之prototype属性的使用</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		var userA = new User("kobe",33);
+		var userB = new User("wade",30);
+		/*经验证，输出结果是相同的*/
+		//函数内部的公共方法
+		alert(userA.getName() + "-" + userA.getAge());
+		alert(userB.getName() + "-" + userB.getAge());
+		//函数的Prototype方法
+		alert(userA.getPrototypeName() + "-" + userA.getPrototypeAge());
+		alert(userB.getPrototypeName() + "-" + userB.getPrototypeAge());
+	}
+	
+	function User(name,age) {
+		this.name = name;
+		this.age = age;
+		this.getName = function() {
+			return this.name;
+		}
+		this.getAge = function() {
+			return this.age;
+		}
+	}
+	
+	User.prototype.getPrototypeName = function() {
+		return this.name;
+	}
+	
+	User.prototype.getPrototypeAge = function() {
+		return this.age;
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">公共方法之prototype属性的使用<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				var userA = new User("kobe",33);<br>
+				var userB = new User("wade",30);<br>
+				/*经验证，输出结果是相同的*/<br>
+				//函数内部的公共方法<br>
+				alert(userA.getName() + "-" + userA.getAge());<br>
+				alert(userB.getName() + "-" + userB.getAge());<br>
+				//函数的Prototype方法<br>
+				alert(userA.getPrototypeName() + "-" + userA.getPrototypeAge());<br>
+				alert(userB.getPrototypeName() + "-" + userB.getPrototypeAge());<br>
+			}<br><br>
+			
+			function User(name,age) {<br>
+				this.name = name;<br>
+				this.age = age;<br>
+				this.getName = function() {<br>
+					return this.name;<br>
+				}<br>
+				this.getAge = function() {<br>
+					return this.age;<br>
+				}<br>
+			}<br><br>
+			
+			User.prototype.getPrototypeName = function() {<br>
+				return this.name;<br>
+			}<br><br>
+			
+			User.prototype.getPrototypeAge = function() {<br>
+				return this.age;<br>
+			}
+		</div>
+		<div id="bottom">
+			函数内部的公共方法和prototype方法执行的结果是一样的<br>
+			函数内部的公共方法又叫做特权方法，用来指代那些在查看并处理(对象中)私有变量的同事
+			允许用户以公共方法的方式访问的方法。
+		</div>
+	</div>
+</BODY>
+</HTML>

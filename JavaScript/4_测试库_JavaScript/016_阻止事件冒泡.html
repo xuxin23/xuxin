@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE>阻止事件冒泡</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+
+	<!-- 测试取消事件冒泡的方法 -->
+	<!-- 去掉stopBubble(e)就能明显的看到事件冒泡所带来的影响了 -->
+	function test() {
+		//定位，遍历所有的DOM元素
+		var all = document.getElementsByTagName("*");
+		for (var i=0; i<all.length; i++) {
+			//监听用户鼠标，当移动到元素上时，为元素加上红色边框
+			all[i].onmouseover = function(e) {
+				this.style.border = "1px solid red";
+				stopBubble(e);
+			};
+			
+			//监听用户鼠标，当移开元素时，删除我们加上的边框
+			all[i].onmouseout = function(e) {
+				this.style.border = "0px";
+				stopBubble(e);
+			};
+		}
+		
+		//测试阻止浏览器默认行为
+		var a = document.getElementsByTagName("a");
+		for (var j=0; j<a.length; j++) {
+			a[j].onclick = function(e) {
+				stopDefault(e);
+			}
+		}
+	}
+	
+	//取消冒泡的通用方法
+	function stopBubble(e) {
+		if (e && e.stopPropagation) {				//如果传入了事件对象，那么就是非IE浏览器
+			e.stopPropagation();					//因此它支持W3C的stopPropagation()方法
+		} else {
+			window.event.cancelBubble = true;		//否则，我们得使用IE的方式来取消事件冒泡
+		}
+	}
+	
+	//阻止浏览器的默认行为
+	function stopDefault(e) {
+		if (e && e.preventDefault) {				//防止默认浏览器行为(W3C)
+			e.preventDefault();
+		} else {									//IE中阻止浏览器行为的捷径
+			window.event.returnValue = false;		
+		}
+	}
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">阻止事件冒泡<button onclick="test();" style="height:30px">初始化</button></div>
+			<ul>
+				<li>
+					<a href="www.baidu.com">百度</a>
+				</li>
+				<li>
+					<a href="www.google.com.hk">谷歌</a>
+				</li>
+			</ul>
+	</div>
+</BODY>
+</HTML>

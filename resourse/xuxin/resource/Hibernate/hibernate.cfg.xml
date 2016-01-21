@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+<session-factory>
+	<property name="hbm2ddl.auto">update</property>
+	<!--  数据库方言 -->
+	<property name="dialect">
+		org.hibernate.dialect.Oracle9Dialect
+	</property>
+	
+	<property name="connection.url">
+		jdbc:oracle:thin:@127.0.0.1:1521:ORCL
+	</property>
+	<property name="connection.username">xuxin</property>
+	<property name="connection.password">xuxin</property>
+	
+	<!-- 自动建表 -->
+	<property name="hibernate.hbm2ddl.auto">update</property>
+	<!-- 显示SQL -->
+	<property name="hibernate.show_sql">true</property>
+	<!-- 格式化SQL -->
+	<property name="hibernate.format_sql">true</property>
+	<property name="connection.driver_class">
+		oracle.jdbc.driver.OracleDriver
+	</property>
+	<property name="myeclipse.connection.profile">
+		oracle.jdbc.driver.OracleDriver
+	</property>
+	
+	<!-- 配置文件所在路径 -->
+	<mapping resource="hibernate/xml/one2onezhu/pojo/IdCard.hbm.xml"/>
+	<mapping resource="hibernate/xml/one2onezhu/pojo/Person.hbm.xml"/>
+	<mapping resource="hibernate/xml/many2onewai/pojo/Department.hbm.xml" />
+	<mapping resource="hibernate/xml/many2onewai/pojo/Employee.hbm.xml" />
+	<mapping resource="hibernate/xml/many2many/pojo/Student.hbm.xml" />
+	<mapping resource="hibernate/xml/many2many/pojo/Teacher.hbm.xml" />
+	<mapping class="hibernate.annotation.many2many.pojo.Studentx"/>
+	<mapping class="hibernate.annotation.many2many.pojo.Teacherx"/>
+</session-factory>
+
+</hibernate-configuration>

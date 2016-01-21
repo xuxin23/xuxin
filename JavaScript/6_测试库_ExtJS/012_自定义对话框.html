@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+	<title>
+		自定义对话框
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		function save(button) {					//注意，这里要传入参数button,虽然在调用的时候未显示传入参数
+			if (button == "yes") {
+				Ext.Msg.alert("结果","已成功保存!");
+			} else if (button == "no") {
+				Ext.Msg.alert("结果","未保存数据!");
+			} else {
+				Ext.Msg.alert("结果","您取消了当前操作!");
+			}
+		}	
+	
+		Ext.onReady(function() {
+			Ext.get("btn").on("click",function() {
+				Ext.Msg.show({
+					title:"保存数据",
+					msg:"你已经作了一些数据操作，是否要保存当前内容的修改?",
+					buttons:Ext.Msg.YESNOCANCEL,					//对话框按钮
+					fn:save,										//对话框按钮触发的方法
+					icon:Ext.MessageBox.QUESTION					//图标
+				});
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<input id="btn" type="button" value="对话框"/>
+</BODY>
+</HTML>

@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+	<title>
+		基本的store
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		<!-- 该代码不能执行，仅作参考 -->
+		Ext.onReady(function() {
+			Ext.Msg.alert("提示","该代码不能执行，仅作参考..");
+			
+			var store = new Ext.data.JSonStore({			//封装的处理xml的store
+				url:"link.eif?cmd=list",					//原本的数据源
+				totalProperty:"results",					//原本的解析器
+				root:"rows",
+				fields:['title',{name:'username',mapping:'author'},
+				        {name:'loginTimes',type:'int'},
+				        {name:'lastLoginTime',mapping:'loginTime',type:'date'}]
+			});
+			
+			store.load();
+		});
+	</script>
+</HEAD>
+<BODY>
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+	<title>
+		Boder布局
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			new Ext.Viewport({
+				layout:"border",
+				items:[{
+						region:"north",
+						title:"顶部面板",
+						height:100
+					   },
+					   {
+						region:"south",
+						title:"底部面板",
+						height:100
+					   },
+					   {
+						region:"west",
+						title:"左边面板",
+						width:200
+					   },
+					   {
+						region:"east",
+						title:"右边面板",
+						width:200
+					   },
+					   {
+						region:"center",
+						title:"中间面板"
+					   }
+				]
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+</BODY>
+</HTML>

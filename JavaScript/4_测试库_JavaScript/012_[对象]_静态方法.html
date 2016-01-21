@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE>对象静态方法</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../CssStyle/home.css" rel="stylesheet" type="text/css"/>
+<script src=""></script>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	var test = function() {
+		var user = new User("xuxin",23);
+		/*静态方法必须用User来调用！！和class一样呗*/
+		var user2 = User.cloneUser(user);
+		alert(user2.getName() + "-" + user2.getAge());
+	}
+	
+	function User(name,age) {
+		this.name = name;
+		this.age = age;
+		this.getName = function() {
+			return this.name;
+		};
+		this.getAge = function() {
+			return this.age;
+		};
+	}
+	
+	//添加一个User对象的静态方法
+	User.cloneUser = function(user) {
+		//创建并返回一个新的用户
+		return new User (
+			user.getName(),
+			user.getAge()
+		);
+	};
+</script>
+</HEAD>
+<BODY>
+	<div id="container">
+		<div id="title">对象静态方法<button onclick="test();" style="height:30px">测试</button></div>
+		<div>
+			var test = function() {<br>
+				var user = new User("xuxin",23);<br>
+				/*静态方法必须用User来调用！！和class一样呗*/<br>
+				var user2 = User.cloneUser(user);<br>
+				alert(user2.getName() + "-" + user2.getAge());<br>
+			}<br><br>
+			
+			function User(name,age) {<br>
+				this.name = name;<br>
+				this.age = age;<br>
+				this.getName = function() {<br>
+					return this.name;<br>
+				};<br>
+				this.getAge = function() {<br>
+					return this.age;<br>
+				};<br>
+			}<br><br>
+			
+			//添加一个User对象的静态方法<br>
+			User.cloneUser = function(user) {<br>
+				//创建并返回一个新的用户<br>
+				return new User (<br>
+					user.getName(),<br>
+					user.getAge()<br>
+				);<br>
+			};
+		</div>
+		<div id="bottom">
+			静态方法，如同java的静态方法一样<br>
+			形式：Object.method = function() {}<br>
+			注意：同java一样，只能用Object.method()来调用，而不能用实例化的对象来调用。
+		</div>
+	</div>
+</BODY>
+</HTML>

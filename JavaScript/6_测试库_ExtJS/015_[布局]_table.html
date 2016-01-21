@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+	<title>
+		Table布局
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			new Ext.Panel({
+				renderTo:"test",
+				title:"容器组件",
+				width:300,
+				height:200,
+				layout:"table",					
+				layoutConfig:{
+					columns:3					//列为3
+				},
+				items:[
+				       {
+					    	title:"面板1",
+					    	html:"这是内容1",
+					    	height:100,
+					    	rowspan:2
+				    	},
+				    	{
+				    		title:"面板2",
+				    		html:"这是内容2",
+				    		colspan:2
+				    	},
+				    	{
+				    		title:"面板3",
+				    		html:"这是内容3"
+				    	},
+				    	{
+				    		title:"面板4",
+				    		html:"这是内容4"
+				    	}
+				       ]
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<div id="test">
+	</div>
+</BODY>
+</HTML>

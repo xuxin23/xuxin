@@ -1,0 +1,384 @@
+<HTML>
+<HEAD>
+	<title>
+		集中训练
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+	
+		<!-- Ext的apply方法 -->
+		<!-- 起止日期和重复密码校验 -->
+		Ext.apply(Ext.form.VTypes,{
+			daterange : function(val, field) {
+				var date = field.parseDate(val);
+				
+				if (!date) {
+					return;
+				}
+				if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
+					var start = Ext.getCmp(field.startDateField);					//根据id获取指定的组件
+					start.setMaxValue(date);										//使用新的值替代所有现存的maxValue,并刷新DatePicker
+					start.validate();												//检验输入栏的值
+					this.dateRangeMax = date;
+				}
+				else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
+					var end = Ext.getCmp(field.endDateField);
+					end.setMinValue(date);
+					end.validate();
+					this.dateRangeMin = date;
+				}
+				return true;
+			},
+			
+			password : function(val, field) {
+				if (field.initialPassField) {
+					var pwd = Ext.getCmp(field.initialPassField);
+					return (val == pwd.getValue());
+				}
+				return true;
+			},
+			
+			passwordText : "傻逼，两次密码输的都不一样"							//出错时的提示信息，覆盖了默认的错误提示
+		});
+	
+		<!-- 页面加载完成，开始初始化 -->
+		Ext.onReady(function() {
+			
+			<!-- 初始化单例。任何基于标签的快速提示开始工作。-->
+			Ext.QuickTips.init();
+			
+			<!-- 将一些配置属性应用到此单例 -->
+			<!-- Ext.apply(Object a, Object b, Object default):将a对象的所有属性拷贝到b对象 -->
+			Ext.apply(Ext.QuickTips.getQuickTip(),{
+				maxWidth:200,
+				minWidth:100,
+				showDelay:500,
+				trackMouse:true
+			});
+			
+			<!-- 界面初始化 -->
+			new Ext.Viewport({
+				layout:"border",
+				items:[
+				       {
+				    	   region:"west",
+				    	   title:"菜单",
+				    	   // collapsed:true,													//渲染成收缩的
+				    	   collapsible:true,													//可收缩的
+				    	   width:200,
+				    	   <!-- 注意：这里千万不能有html -->
+				    	   // html:"ll",
+				    	   layout:"accordion",													//可折叠布局
+				    	   layoutConfig:{
+								animate:true													//动画效果
+							},
+							items:[
+							       {
+							    	   title:"个人中心",
+							    	   html:"内容1"
+							       },
+							       {
+							    	   title:"宣传管理",
+							    	   html:"内容2"
+							       },
+							       {
+							    	   title:"销售中心",
+							    	   html:"内容3"
+							       },
+							       {
+							    	   title:"售后服务",
+							    	   html:"内容4"
+							       },
+							       {
+							    	   title:"安全管理",
+							    	   html:"内容5"
+							       }
+							       ]
+				       },
+				       {
+				    	   region:"center",
+				    	   title:"主面板",
+				    	   xtype:"tabpanel",											//选项卡面板
+				    	   items:[
+				    	          {
+				    	        	  title:"Dynamic Forms",
+				    	        	  tabTip:"一些动态表单的例子",
+				    	        	  bodyStyle:"padding:10px 10px 0",
+				    	        	  autoScroll:true,									//必要时自动显示滚动条
+				    	        	  items:[
+				    	        	         {
+				    	        	        	 title:"Simple Form",
+				    	        	        	 xtype:"form",
+				    	        	        	 bodyStyle:"padding:10px 10px 10px 10px;",	//样式
+				    	        	        	 defaultType:"textfield",					//items的默认类型
+				    	        	        	 labelAlign:"right",						//label位置
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"First Name",
+				    	        	        	        	name:"first",
+				    	        	        	        	allowBlank:false				//允许输入为空,false表示不允许
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"Last Name",
+				    	        	        	        	name:"last"
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"Company",
+				    	        	        	        	name:"company"
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"Email",
+				    	        	        	        	name:"email",
+				    	        	        	        	vtype:"email"					//验证规则
+				    	        	        	        },
+				    	        	        	        new Ext.form.TimeField({			//下拉框事件选择器
+				    	        	        	        	fieldLabel:"Time",
+				    	        	        	        	name:"time",
+				    	        	        	        	minValue:"8:00am",				//最小时间
+				    	        	        	        	maxValue:"1:00pm",				//最大时间
+				    	        	        	        	increment:60						//下拉框中时间间隔，默认为15
+				    	        	        	        })
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:"Simle Form with FieldSets",
+				    	        	        	 xtype:"form",
+				    	        	        	 bodyStyle:"padding:10px 10px 10px 10px;margin:0px 0px 10px 0px",
+				    	        	        	 labelAlign:"right",
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:"fieldset",					//表单分组
+				    	        	        	        	title:"User Information",
+				    	        	        	        	defaultType:"textfield",
+				    	        	        	        	checkboxToggle:true,				//点击按钮展开收缩表单
+				    	        	        	        	collapsed:true,						//设置为收缩的
+				    	        	        	        	// height:400,
+				    	        	        	        	autoHeight:true,					//高度自适应，比如这里，默认是收缩的，-
+				    	        	        	        										//高度很小，当展开后，高度自动增加
+				    	        	        	        	items:[
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"First Name",
+				    	        	        	        	    	   name:"first",
+				    	        	        	        	    	   allowBlank:false
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Last Name",
+				    	        	        	        	    	   name:"last"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Company",
+				    	        	        	        	    	   name:"company"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Email",
+				    	        	        	        	    	   name:"email",
+				    	        	        	        	    	   vtype:"email"
+				    	        	        	        	       }
+				    	        	        	        	       ]
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:"fieldset",
+				    	        	        	        	title:"Phone Number",
+				    	        	        	        	collapsible:true,						//可收缩的，效果和checkboxToggle不同
+				    	        	        	        	autoHeight:true,
+				    	        	        	        	defaultType:"textfield",
+				    	        	        	        	items:[
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Home",
+				    	        	        	        	    	   name:"home",
+				    	        	        	        	    	   value:"(888) 555-1212"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Business",
+				    	        	        	        	    	   name:"business"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Mobile",
+				    	        	        	        	    	   name:"mobile"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Fax",
+				    	        	        	        	    	   name:"fax"
+				    	        	        	        	       }
+				    	        	        	        	       ]
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:"Multi Column,Nested Layouts and Anchoring",
+				    	        	        	 xtype:"form",
+				    	        	        	 bodyStyle:"padding:10px 10px 10px 10px;margin:0px 0px 10px 0px",
+				    	        	        	 layout:"column",
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:"htmleditor",							//编辑器
+				    	        	        	        	id:"bio",
+				    	        	        	        	height:200,
+				    	        	        	        	anchor:"98%"
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	        	 
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:"... and forms can contain TabPanel(s)",
+				    	        	        	 html:"以后再说",
+				    	        	        	 bodyStyle:"padding:10px 10px 10px 10px;margin:0px 0px 10px 0px"
+				    	        	         }
+				    	        	         ]
+				    	          },
+				    	          {
+				    	        	  title:"Advanced Validation",
+				    	        	  tabTip:"加强的表单验证",
+				    	        	  bodyStyle:"padding:5px 5px 0",
+				    	        	  items:[
+				    	        	         {
+				    	        	        	 xtype:"form",
+				    	        	        	 title:"Date Range",
+				    	        	        	 bodyStyle:"padding:5px 5px 0",
+				    	        	        	 defaultType:"datefield",
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"Start Date",
+				    	        	        	        	name:"startdt",
+				    	        	        	        	id:"startdt",
+				    	        	        	        	vtype:"daterange",				//自定义验证类型
+				    	        	        	        	endDateField:"enddt",			//结束日期的id,自定义对象可以设置自己的属性嘛
+				    	        	        	        									//Panel的配置参数没有这个参数，但是无所谓啊，
+				    	        	        	        									//我又不是通过这个参数初始化组件，而是传入
+				    	        	        	        									//校验函数的
+				    	        	        	        	format:"Y-m-d"
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"End Date",
+				    	        	        	        	name:"enddt",
+				    	        	        	        	id:"enddt",
+				    	        	        	        	vtype:"daterange",
+				    	        	        	        	startDateField:"startdt",
+				    	        	        	        	format:"Y-m-d"
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 xtype:"form",
+				    	        	        	 title:"Password Verification",
+				    	        	        	 defaults:{
+				    	        	        		 inputType:"password"
+				    	        	        	 },
+				    	        	        	 defaultType:"textfield",
+				    	        	        	 bodyStyle:"padding:5px 5px 0",
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"Password",
+				    	        	        	        	name:"pass",
+				    	        	        	        	id:"pass"
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	fieldLabel:"Confirm Password",
+				    	        	        	        	name:"pass-confirm",
+				    	        	        	        	vtype:"password",
+				    	        	        	        	initialPassField:"pass"				//原始密码框的id
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         }
+				    	        	         ]
+				    	          },
+				    	          {
+				    	        	  title:"Check/Radio Groups",
+				    	        	  tabTip:"单选按钮和复选按钮的例子",							//提示
+				    	        	  autoScroll:true,											//必要的时候自动显示滚动条
+				    	        	  bodyStyle:"padding:5px 5px 0",							//样式
+				    	        	  items:[
+				    	        	         {
+				    	        	        	 xtype:"form",
+				    	        	        	 title:"Check/Radio Groups",
+				    	        	        	 bodyStyle:"padding:5px 5px 0",
+				    	        	        	 layout:"table",								//表格布局
+				    	        	        	 layoutConfig:{						
+				    	        	        		 columns:2									//2列
+				    	        	        	 },
+				    	        	        	 defaults:{
+				    	        	        		 bodyStyle:"padding:10px"					//为子元素设置默认样式
+				    	        	        	 },
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:"fieldset",					//分组表单
+				    	        	        	        	title:"Individual Checkboxes",
+				    	        	        	        	collapsible:true,					//可收缩
+				    	        	        	        	autoHeight:true,					//高度自适应,一般可收缩的要设置高度自适应吧
+				    	        	        	        	defaultType:"checkbox",
+				    	        	        	        	items:[
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Favorite Animals",
+				    	        	        	        	    	   boxLabel:"Dog",			//复选框的显示文字
+				    	        	        	        	    	   name:"fav-animal-dog"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"",			//标签文字设置为""
+				    	        	        	        	    	   labelSeparator:"",		//同时将标签后的默认分隔符":"设置为""
+				    	        	        	        	    	   boxLabel:"Cat",
+				    	        	        	        	    	   name:"fav-animal-cat"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"",
+				    	        	        	        	    	   labelSeparator:"",
+				    	        	        	        	    	   boxLabel:"monkey",
+				    	        	        	        	    	   name:"fav-animal-monkey"
+				    	        	        	        	       }
+				    	        	        	        	       ]
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:"fieldset",
+				    	        	        	        	title:"Individual Radios",
+				    	        	        	        	collapsible:true,
+				    	        	        	        	autoHeight:true,
+				    	        	        	        	defaultType:"radio",
+				    	        	        	        	items:[
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"Favorite Color",
+				    	        	        	        	    	   boxLabel:"Red",
+				    	        	        	        	    	   name:"fav-color"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"",
+				    	        	        	        	    	   labelSeparator:"",
+				    	        	        	        	    	   boxLabel:"Blue",
+				    	        	        	        	    	   name:"fav-color"
+				    	        	        	        	       },
+				    	        	        	        	       {
+				    	        	        	        	    	   fieldLabel:"",
+				    	        	        	        	    	   labelSeparator:"",
+				    	        	        	        	    	   boxLabel:"Green",
+				    	        	        	        	    	   name:"fav-color"
+				    	        	        	        	       }
+				    	        	        	        	       ]
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         }
+				    	        	         ]
+				    	          },
+				    	          {
+				    	        	  title:"File Upload Field",
+				    	        	  tabTip:"文件上传的例子",
+				    	        	  bodyStyle:"padding:5px 5px 0",
+				    	        	  items:[
+				    	        	         {
+				    	        	        	 xtype:"form",
+				    	        	        	 title:"File Upload Field"
+				    	        	        	 
+				    	        	         }
+				    	        	         ]
+				    	          }
+				    	          ]
+				       }
+				       ]
+			});
+		});
+	</script>
+</HEAD>
+<BODY>
+	<div id="test"></div>
+</BODY>
+</HTML>

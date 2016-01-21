@@ -1,0 +1,396 @@
+<HTML>
+<HEAD>
+	<title>
+		阶段测试2
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJSLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJSLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJSLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			
+			<!-- 快速提示初始化 -->
+			Ext.QuickTips.init();
+			Ext.apply(Ext.QuickTips.getQuickTip(), {
+				maxWidth:200,
+				minWidth:50,
+				showDelay:500,
+				trackMouse:true
+			});
+			
+			<!-- 添加新的检验规则 -->
+			Ext.apply(Ext.form.VTypes, {
+				myPassword:	function(val, field) {				<!-- 第一个参数是验证的输入域的值， 第二个参数是验证的输入域的组件id -->
+					if (field.kobe) {
+						var pwd = Ext.getCmp(field.kobe);
+						return (val == pwd.getValue());
+					}
+					return true;
+				},
+				myPasswordText:'两次输入的密码不一致！'			<!-- 覆盖默认的校验失败提示语句；在校验规则后面加上'Text'，就是对应校验失败的提示语句 -->
+			});
+			
+			<!-- 登录操作 -->
+			var login = function() {
+				Ext.Msg.alert("警告", "你确定要非法入侵FBI核心资料库？", function() {
+					// 获取用户名、密码
+					var username = Ext.getCmp('username').getValue();
+					var password = Ext.getCmp('password').getValue();
+					// Ext.Msg.alert("提示", "username=" + username + ";password=" + password);
+					if (username == "" || password == "") {
+						Ext.Msg.alert("提示", "账号密码输入有误！");
+					} else {
+						Ext.Msg.alert("提示", "登录中..");
+					}
+				});
+			}
+			
+			<!-- 界面初始化 -->
+			new Ext.Viewport({
+				layout: 'border',
+				items:[
+				       <!-- 									【 菜单区域 】				 					 -->
+				       {
+				    	   region:'west',
+				    	   title:'菜单',
+				    	   width:250,
+				    	   collapsible:true,
+				    	   layout:'accordion',
+				    	   layoutConfig:{
+				    		   animate:true
+				    	   },
+				       		items:[
+				       		       {
+				       		    	   title:'个人管理'
+				       		       },
+				       		       {
+				       		    	   title:'用户管理'
+				       		       },
+				       		       {
+				       		    	   title:'工作管理'
+				       		       }
+				       		       ]
+				       },
+				       
+				       <!-- 									【 主面板区域 】 					 			-->
+				       {
+				    	   id:'mainPanel',
+				    	   region:'center',
+				    	   title:'主面板',
+				    	   xtype:'tabpanel',
+				    	   layoutOnTabChange:true,										<!-- 解决子标签组件的内容必须改变浏览器窗口才能显示的问题 -->
+				       																	<!-- layoutOnTabChange:true将在标签页发生变化后对所有标签页进行一次布局 -->
+				    	   plain:true,													<!-- 未测试出任何效果 -->
+				    	   items:[
+				    	          {
+				    	        	  id:'index',
+				    	        	  title:'首页',
+				    	        	  tabTip:'这是首页',
+				    	        	  html:'欢迎进入 XX 系统！'
+				    	          },
+				    	          {
+				    	        	  title:'表单',
+				    	        	  tabTip:'集中测试表单的区域',
+				    	        	  autoScroll:true,										<!-- 在需要的时候自动显示滚动条 -->
+				    	        	  closable:true,										<!-- Tab子标签上设置“关闭”按钮 -->
+				    	        	  bodyStyle:'padding:10px 10px 10px 10px',				<!-- 设置样式 -->
+				    	        	  tbar:[
+				    	        	        {
+				    	        	        	xtype:'tbbutton',							<!-- 按钮 -->
+				    	        	        	text:'刷新',
+				    	        	        	handler:function() {
+				    	        	        		Ext.Msg.alert("提示", "工程施工中..");
+				    	        	        	}
+				    	        	        },
+				    	        	        {
+				    	        	        	xtype:'tbseparator'
+				    	        	        },
+				    	        	        {
+				    	        	        	xtype:'tbsplit',							<!-- 分隔按钮 -->
+				    	        	        	text:'球队',
+				    	        	        	menu:new Ext.menu.Menu({
+				    	        	        		items:[
+				    	        	        		       {
+				    	        	        		    	   text:'湖人',
+				    	        	        		    	   menu:new Ext.menu.Menu({
+				    	        	        		    		   items:[
+				    	        	        		    		          {
+				    	        	        		    		        	  text:'球员资料',
+				    	        	        		    		        	  handler:function() {
+				    	        	        		    		        		  var win = new Ext.Window({
+				    	        	        		    		        			  width:300,
+				    	        	        		    		        			  height:300,
+				    	        	        		    		        			  title:'球员资料',
+				    	        	        		    		        			  maximizable:true,
+				    	        	        		    		        			  html:'TODO'
+				    	        	        		    		        		  });
+				    	        	        		    		        		  win.show();
+				    	        	        		    		        	  }
+				    	        	        		    		          },
+				    	        	        		    		          {
+				    	        	        		    		        	  text:'球队赛程'
+				    	        	        		    		          },
+				    	        	        		    		          {
+				    	        	        		    		        	  text:'球队历史'
+				    	        	        		    		          }
+				    	        	        		    		          ]
+				    	        	        		    	   })
+				    	        	        		       },
+				    	        	        		       {
+				    	        	        		    	   text:'热火',
+				    	        	        		    	   handler:function() {
+				    	        	        		    		   Ext.Msg.alert("热火", "卫冕总冠军！五黄威武！");
+				    	        	        		    	   }
+				    	        	        		       },
+				    	        	        		       {
+				    	        	        		    	   text:'雷霆'
+				    	        	        		       },
+				    	        	        		       {
+				    	        	        		    	   text:'快船'
+				    	        	        		       },
+				    	        	        		       {
+				    	        	        		    	   text:'掘金'
+				    	        	        		       },
+				    	        	        		       {
+				    	        	        		    	   text:'火箭'
+				    	        	        		       }
+				    	        	        		       ]
+				    	        	        	})
+				    	        	        }
+				    	        	        ],
+				    	        	  defaults:{												<!-- 设置子元素的共同属性的默认值 -->
+				    	        		  xtype:'form',
+				    	        		  bodyStyle:'padding:10px 10px 10px 10px; margin:0px 0px 10px 0px'
+				    	        	  },
+				    	        	  items:[
+				    	        	         {
+				    	        	        	 title:'简单文本域',
+				    	        	        	 defaultType:'textfield',						<!-- 子元素的默认组件类型 -->
+				    	        	        	 labelAlign:'right',
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	fieldLabel:'账号',
+				    	        	        	        	id:'username',
+				    	        	        	        	name:'username',
+				    	        	        	        	allowBlank:false,
+				    	        	        	        	emptyText:'请输入账号'				<!-- 默认显示 -->
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	fieldLabel:'密码',
+				    	        	        	        	id:'password',
+				    	        	        	        	name:'password',
+				    	        	        	        	allowBlank:false,
+				    	        	        	        	emptyText:'请输入密码'
+				    	        	        	        }
+				    	        	        	        ],
+				    	        	        	 buttons:[
+				    	        	        	          {
+				    	        	        	        	  text:'登录',
+				    	        	        	        	  handler:login						<!-- 直接写触发的方法的名称即可 -->
+				    	        	        	          }
+				    	        	        	          ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:'下拉框和日期选择器',
+				    	        	        	 labelAlign:'right',
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:'timefield',						<!-- 日期下拉框 -->
+				    	        	        	        	fieldLabel:'时间',
+				    	        	        	        	emptyText:'请点击下拉框选择时间',
+				    	        	        	        	name:'month',
+				    	        	        	        	minValue:"8:00am",						<!-- 最小时间 -->
+				    	        	        	        	maxValue:"1:00pm",						<!-- 最大时间 -->
+				    	        	        	        	increment:60							<!-- 下拉框时间的递增间隔 -->
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'datefield',
+				    	        	        	        	fieldLabel:'日期',
+				    	        	        	        	emptyText:'请选择日期',
+				    	        	        	        	name:'date',
+				    	        	        	        	format:'Y-m-d'
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'combo',
+				    	        	        	        	fieldLabel:'城市',
+				    	        	        	        	emptyText:'请选择城市',
+				    	        	        	        	transform:'city',					<!-- 该select节点好像不能是body下的根节点 -->
+				    	        	        	        	triggerAction:"all",				<!-- 全部加载，默认加载第一个option -->
+				    	        	        	        	lazyRender:true						<!-- 指定tranform时必须设置 -->
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:'分组表单',
+				    	        	        	 defaultType:'fieldset',
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	title:'复选框收缩',
+				    	        	        	        	checkboxToggle:true,					<!-- 收缩方式：复选框 -->
+				    	        	        	        	collapsed:true,							<!-- 默认收缩状态 -->
+				    	        	        	        	autoHeight:true,
+				    	        	        	        	defaultType:'textarea',
+				    	        	        	        	items:[
+				    	        	        	        	       {
+				    	        	        	        	    	   name:'favorate',
+				    	        	        	        	    	   labelSeparator:'',
+				    	        	        	        	    	   emptyText:'请输入您的爱好',
+				    	        	        	        	    	   width:300
+				    	        	        	        	       }
+				    	        	        	        	       ]
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	title:'普通收缩',
+				    	        	        	        	collapsible:true,						<!-- 收缩方式：普通 -->
+				    	        	        	        	collapsed:false,						<!-- 默认收缩状态 -->
+				    	        	        	        	autoHeight:true,
+				    	        	        	        	defaultType:'textfield',
+				    	        	        	        	items:[
+				    	        	        	        	       {
+				    	        	        	        	    	   name:'score',
+				    	        	        	        	    	   fieldLabel:'成绩',
+				    	        	        	        	    	   emptyText:'请输入您的成绩'
+				    	        	        	        	       }
+				    	        	        	        	       ]
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:'单选按钮和复选按钮',
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:'checkbox',
+				    	        	        	        	fieldLabel:'支持的球队',
+				    	        	        	        	boxLabel:'湖人',
+				    	        	        	        	name:'teams'
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'checkbox',
+				    	        	        	        	boxLabel:'热火',
+				    	        	        	        	name:'teams',
+				    	        	        	        	labelSeparator:''
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'checkbox',
+				    	        	        	        	boxLabel:'雷霆',
+				    	        	        	        	name:'teams',
+				    	        	        	        	labelSeparator:''
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'radio',
+				    	        	        	        	boxLabel:'男',
+				    	        	        	        	name:'sex',
+				    	        	        	        	fieldLabel:'性别'
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'radio',
+				    	        	        	        	boxLabel:'女',
+				    	        	        	        	name:'sex',
+				    	        	        	        	labelSeparator:''
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:'表单验证',
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:'textfield',
+				    	        	        	        	name:'pretty',
+				    	        	        	        	fieldLabel:'昵称',
+				    	        	        	        	emptyText:'不能为空',
+				    	        	        	        	allowBlank:false						<!-- ExtJS自带的校验输入长度是否允许为0 -->
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'textfield',
+				    	        	        	        	name:'email',
+				    	        	        	        	fieldLabel:'邮件',
+				    	        	        	        	emptyText:'符合a@b.com格式',
+				    	        	        	        	vtype:'email'
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'textfield',
+				    	        	        	        	name:'pass',
+				    	        	        	        	id:'pass',
+				    	        	        	        	fieldLabel:'新密码',
+				    	        	        	        	inputType:'password'				
+				    	        	        	        },
+				    	        	        	        {
+				    	        	        	        	xtype:'textfield',
+				    	        	        	        	name:'pass-confirm',
+				    	        	        	        	fieldLabel:'再次输入',
+				    	        	        	        	vtype:'myPassword',						<!-- 自定义的 校验规则，要写入 Ext.form.VTypes -->
+				    	        	        	        	kobe:"pass",							<!-- 自定义的属性，用来标记比较输入域的组件id -->
+				    	        	        	        	inputType:'password'
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         },
+				    	        	         {
+				    	        	        	 title:'编辑器',
+				    	        	        	 layout:"column",
+				    	        	        	 items:[
+				    	        	        	        {
+				    	        	        	        	xtype:'htmleditor',
+				    	        	        	        	labelSeparator:'',
+				    	        	        	        	height:200
+				    	        	        	        }
+				    	        	        	        ]
+				    	        	         }
+				    	        	         ]
+				    	          }
+				    	          ]
+				       },
+				       
+				       <!-- 									【 头部区域 】 		  							 -->
+				       {
+				    	   id:'head',
+				    	   region:'north',
+				    	   title:'头部',
+				    	   height:100,
+				    	   collapsible:true,
+				    	   tools:[
+				    	          {
+				    	        	  id:'help',
+				    	        	  handler:function() {
+				    	        		  Ext.Msg.alert("帮助", "我不会再帮你了！");
+				    	        	  }
+				    	          },
+				    	          {
+				    	        	  id:'close',
+				    	        	  handler:function() {
+				    	        		  Ext.Msg.alert("提示","当前区域会失效5秒钟，确定继续吗？",function() {		<!-- alert的回调函数 -->
+				    	        			  var head = Ext.getCmp('head');					<!-- getCmp()方法的使用 -->
+					    	        		  head.disable();
+					    	        		  var myMask = new Ext.LoadMask('head', {msg:'失效中..'});
+					    	        		  myMask.show();
+					    	        		  setTimeout(function() {
+					    	        			  head.enable();
+					    	        			  myMask.hide();
+					    	        		  }, 5000);
+				    	        		  });
+				    	        	  }
+				    	          }
+				    	          ]
+				       }
+				       ]
+			});
+			
+			var mainPanel = Ext.getCmp('mainPanel');		
+			mainPanel.activate('index');				<!-- 这两行代码是让界面初始化完成后，即显示第一个Tab页；默认显示容器背景 -->
+		});
+	</script>
+</HEAD>
+<BODY>
+<div>
+	<select id="city">
+		<option value="桐城">桐城</option>
+		<option value="菏泽">菏泽</option>
+		<option value="昆山">昆山</option>
+		<option value="天津">天津</option>
+		<option value="上海">上海</option>
+		<option value="南京">南京</option>
+		<option value="广州">广州</option>
+	</select>
+</div>
+</BODY>
+</HTML>

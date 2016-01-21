@@ -1,0 +1,20 @@
+
+-------------------------------------------------------------------------------------
+使用示例请参考 [ BBS ] 项目的post.jsp和post.js
+-------------------------------------------------------------------------------------
+
+		$(".pagination").pagination(total , {
+			callback:PageCallback,			// 回调函数
+			pre_text:'上一页',				// 上一页按钮里的text
+			next_text:'下一页',				// 下一页按钮里的text
+			item_per_page:pageSize,			// 每一页显示的条数
+			num_display_entries:6,			// 连续分页主题部分分页条目数
+			current_page:pageIndex,			// 当前页索引
+			num_edge_entries:2				// 两侧收尾分页条目数
+		});
+		
+		var PageCallback = function(index, jq) {
+			InitTable(index);
+		};
+		
+-------------------------------------------------------------------------------------	

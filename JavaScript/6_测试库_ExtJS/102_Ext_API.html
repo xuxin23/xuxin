@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+	<title>
+		Ext API
+	</title>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../JsLib/ExtJsLib/resources/css/ext-all.css"/>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-base.js"></script>
+	<script type="text/javascript" src="../JsLib/ExtJsLib/ext-all.js"></script>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			
+			Ext.Msg.alert("Test", "测试开始..");
+			
+			<!-- Ext.each() -->
+			var arr = [11,21,31];
+			Ext.each(arr, function(value, index) {  //第一个参数为数组的值，第二个参数为数组的下标
+				arr[index] = value + 10;
+			});
+			setTimeout(function() {
+				Ext.Msg.alert("each", arr);
+			}, 2000);
+			
+			<!-- Ext.isArray -->
+			setTimeout(function() {
+				Ext.Msg.alert("isArray", Ext.isArray(arr));
+			}, 4000);
+			
+			<!-- Ext.isEmpty -->
+			var emp = "";
+			setTimeout(function() {
+				Ext.Msg.alert("isEmpty", Ext.isEmpty(emp));
+			}, 6000);
+			
+			<!-- Ext.isDate -->
+			var date = new Date();
+			var tdate = Date.parseDate("2012-12-12", "Y-m-d");
+			var fdate = Date.parseDate("2013-2-34", "Y-m-d");
+			setTimeout(function() {
+				Ext.Msg.alert("isDate", Ext.isDate(date) && Ext.isDate(tdate) && !Ext.isDate(fdate));
+			}, 8000);
+			
+			setTimeout(function() {
+				Ext.Msg.alert("Test", "测试结束！");
+			}, 10000);
+		});
+	</script>
+</HEAD>
+<BODY>
+</BODY>
+</HTML>
