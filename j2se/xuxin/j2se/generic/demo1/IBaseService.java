@@ -1,6 +1,3 @@
-/**
- * 
- */
 package xuxin.j2se.generic.demo1;
 
 import java.util.ArrayList;
