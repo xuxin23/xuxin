@@ -1,23 +1,19 @@
 package xuxin.j2se.thread.demo3ReentrantLock;
 
+import xuxin.j2se.thread.demo3ReentrantLock.Bank;
+import xuxin.j2se.thread.demo3ReentrantLock.InRunnable;
+import xuxin.j2se.thread.demo3ReentrantLock.OutRunnable;
+
 public class Client {
 
 	public static void main(String[] args) {
-		Bank bank = new Bank(10000, 3000);
+		Bank bank = new Bank(2500);
+		Thread in1 = new Thread(new InRunnable(bank),"in1");
+		Thread out1 = new Thread(new OutRunnable(bank),"out1");
+		Thread out2 = new Thread(new OutRunnable(bank),"out2");
 		
-		Thread a = new Thread(new RunnableA(bank), "矮穷挫");
-		Thread b = new Thread(new RunnableB(bank), "郭美美");
-		Thread c = new Thread(new RunnableC(bank), "詹姆斯");
-		Thread d = new Thread(new RunnableD(bank), "银行员");
-		
-		a.start();
-		b.start();
-		c.start();
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		d.start();
+		in1.start();
+		out1.start();
+		out2.start();
 	}
 }
