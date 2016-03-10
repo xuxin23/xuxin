@@ -21,7 +21,7 @@ import java.io.InputStream;
  * @author xuxin
  *
  */
-public class FileSystemClassLoader extends ClassLoader{
+public class FileSystemClassLoader extends ClassLoader {
 	private String rootDir;
 	
 	public FileSystemClassLoader(String rootDir) {
