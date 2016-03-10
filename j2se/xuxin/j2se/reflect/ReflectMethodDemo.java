@@ -27,7 +27,7 @@ public class ReflectMethodDemo {
 		Field[] fields = c.getDeclaredFields();
 		System.out.println("--------------字段如下-----------------");
 		for (Field e:fields) {
-			System.out.println("字段名:" + e.getName() + "\t类型：" + e.getClass() + 
+			System.out.println("字段名:" + e.getName() + "\t类型：" + e.getGenericType() + 
 					"\t访问权限：" + e.getModifiers());
 		}
 		
