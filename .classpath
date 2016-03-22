@@ -6,7 +6,15 @@
 	<classpathentry kind="src" path="junit"/>
 	<classpathentry kind="src" path="org"/>
 	<classpathentry kind="src" path="net"/>
-	<classpathentry kind="src" path="resourse"/>
+	<classpathentry kind="src" path="resource"/>
+	<classpathentry kind="src" path="resource_Struts2"/>
+	<classpathentry kind="src" path="resource_Hibernate"/>
+	<classpathentry kind="src" path="resource_iBatis"/>
+	<classpathentry kind="src" path="resouce_Spring3"/>
+	<classpathentry kind="src" path="resource_JspTag"/>
+	<classpathentry kind="src" path="resource_DWR"/>
+	<classpathentry kind="src" path="resource_OSCache"/>
+	<classpathentry kind="src" path="resource_Tomcat"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
