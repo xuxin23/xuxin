@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<!-- 配置struts处理文件上传需要的常量 -->
+	<constant name="struts.multipart.maxSize" value="1000000" />
+	<!-- 配置临时文件的存储位置，不配置的话默认存储在../work/localhost/.. -->
+	<!-- <constant name="struts.multipart.saveDir" value="/myhome" /> -->
+
+	<package name="fileupload" namespace="/struts" extends="struts-default">
+		
+		<!-- 上传 -->
+		<action name="fileUp" class="pro.ajax.action.FileUpLoadAction">
+			<!-- 配置fileUpload拦截器 -->
+			<interceptor-ref name="fileUpload">
+				<!-- 配置允许的类型 -->
+		        <param name="allowedTypes">
+		        	text/plain,image/png,image/gif,image/jpeg
+		        </param>
+		        <!-- 配置允许的大小 -->
+		        <param name="maximumSize">500000</param>
+		    </interceptor-ref>
+		    <!-- 配置系统默认拦截器(如果不配置，那么默认拦截器会失效) -->
+		    <interceptor-ref name="defaultStack"/>
+		    
+		    <!-- 动态设置Action属性值 -->
+			<param name="savePath">/myhome</param>
+			
+			<result name="success">
+				/success.jsp
+			</result>
+			
+			<!-- 配置input逻辑视图,(被拦截器拦截后会自动返回input逻辑视图) -->
+			<result name="input">
+				/fileupload02_struts.jsp
+			</result>
+		</action>
+		
+		<!-- 下载 -->
+		<action name="download" class="pro.ajax.action.FileDownloadAction">
+			<!-- <param name="inputPath">\img\nba.rar</param> -->
+			<result name="success" type="stream">
+				<param name="contentType">img/jpg</param>
+				<!-- 指定由getTargetFile()方法返回被下载文件的InputStream -->
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">filename="nba.rar"</param>
+				<!-- 指定下载文件的缓冲大小 -->
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+</struts>    

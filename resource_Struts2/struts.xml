@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<!-- 指定全局国际化资源文件 -->
+	<constant name="struts.custom.i18n.resource" value="mess"/>
+	<!-- 指定国际化编码所使用的字符集 -->
+	<constant name="struts.i18n.encoding" value="GBK"/>
+	<!-- 是否使用开发模式 -->
+	<constant name="struts.devMode" value="true"/>
+	
+	<!-- 默认包default,必须继承自struts-default -->
+	<package name="default" namespace="/" extends="struts-default">
+	
+		<!-- 默认跳转路径 -->
+		<default-action-ref name="index" />
+		
+		<!-- 定义全局异常映射 -->
+		<global-exception-mappings>
+			<exception-mapping exception="java.sql.SQLException" result="sql"/>
+			<exception-mapping exception="java.lang.Exception" result="root"/>
+		</global-exception-mappings>
+		
+		<!-- 用户登录退出 -->
+		<action name="user_*" class="team4.motor.action.LoginAndExitAction"
+			method="{1}">
+			<result name="index" type="redirect">index</result>
+			<!-- 跳转到管理员子系统 -->
+			<result name="manager" type="chain">
+				<param name="actionName">operatorinfo_findAll</param>
+				<param name="namespace">/manager</param>
+			</result>
+			
+		</action>
+		
+	</package>
+	
+	<!-- 管理员子系统配置文件 -->
+	<include file="struts-manager.xml"></include>
+	<!-- 返回JSON配置文件 -->
+	<include file="struts-json.xml"></include>
+	<!-- 文件上传下载配置文件 -->
+	<include file="struts-fileupload.xml"></include>
+	
+
+</struts>    
